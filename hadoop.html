@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京交通大学Hadoop集群搭建成果展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #00447c, #0066b3);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .student-info {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        .student-info div {
+            margin: 0 15px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            color: #00447c;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .section-intro {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .cluster-overview {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .cluster-node {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            border-left: 4px solid #00447c;
+        }
+        
+        .node-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #00447c;
+        }
+        
+        .node-services {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .process-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .process-list li {
+            background: #e9ecef;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .config-steps {
+            margin: 20px 0;
+        }
+        
+        .step {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #0066b3;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .step-content {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .monitoring-dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .dashboard-item {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+        }
+        
+        .dashboard-title {
+            font-weight: bold;
+            color: #00447c;
+            margin-bottom: 10px;
+        }
+        
+        .web-ui-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .ui-item {
+            flex: 1;
+            min-width: 300px;
+            margin: 10px;
+            text-align: center;
+        }
+        
+        .ui-title {
+            font-weight: bold;
+            color: #00447c;
+            margin-bottom: 10px;
+        }
+        
+        .ui-description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        
+        .file-commands {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .command-table {
+            flex: 1;
+            min-width: 300px;
+            margin: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .command-title {
+            font-weight: bold;
+            color: #00447c;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #e9ecef;
+            color: #00447c;
+        }
+        
+        /* 图片样式 */
+        .image-container {
+            width: 100%;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #e9ecef;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            margin: 10px 0;
+            border: 1px dashed #ccc;
+        }
+        
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .image-col {
+            flex: 1;
+            min-width: 300px;
+            margin: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .section-subtitle {
+            font-size: 20px;
+            color: #00447c;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .brief-config {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #0066b3;
+        }
+        
+        @media (max-width: 768px) {
+            .cluster-overview, .monitoring-dashboard, .web-ui-gallery, .file-commands, .image-row {
+                flex-direction: column;
+            }
+            
+            .cluster-node, .dashboard-item, .ui-item, .command-table, .image-col {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>北京交通大学Hadoop集群搭建成果展示</h1>
+            <p class="subtitle">大数据平台安装配置与监控系统</p>
+            <div class="student-info">
+                <div>学号：23281283</div>
+                <div>姓名：苏门</div>
+                <div>学院：计算机与信息技术学院</div>
+            </div>
+        </header>
+        
+        <div class="section">
+            <h2 class="section-title">集群架构概览</h2>
+            <p class="section-intro">基于三节点Hadoop集群，成功部署了完整的大数据生态系统，包括HDFS、YARN、HBase以及监控系统。<br>
+            集群采用主从架构，实现了高可用性和负载均衡。</p>
+            
+            <div class="cluster-overview">
+                <div class="cluster-node">
+                    <div class="node-title">Hadoop1 (192.168.136.132)</div>
+                    <div class="node-services">主节点</div>
+                    <ul class="process-list">
+                        <li>NameNode</li>
+                        <li>ResourceManager</li>
+                        <li>DataNode</li>
+                        <li>NodeManager</li>
+                        <li>HBase Master</li>
+                    </ul>
+                </div>
+                <div class="cluster-node">
+                    <div class="node-title">Hadoop2 (192.168.136.133)</div>
+                    <div class="node-services">备用节点</div>
+                    <ul class="process-list">
+                        <li>SecondaryNameNode</li>
+                        <li>DataNode</li>
+                        <li>NodeManager</li>
+                        <li>HBase RegionServer</li>
+                    </ul>
+                </div>
+                <div class="cluster-node">
+                    <div class="node-title">Hadoop3 (192.168.136.134)</div>
+                    <div class="node-services">工作节点</div>
+                    <ul class="process-list">
+                        <li>DataNode</li>
+                        <li>NodeManager</li>
+                        <li>HBase RegionServer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Hadoop集群配置</h2>
+            <p class="section-intro">在Ubuntu 20.04系统上成功搭建了三节点Hadoop集群，配置了HDFS和YARN资源管理器。<br>
+            通过SSH免密登录实现节点间通信，确保集群正常运行。</p>
+            
+            <div class="brief-config">
+                <h3 class="step-title">配置步骤概览</h3>
+                <p class="step-content">
+                    1. 环境准备与SSH配置：安装SSH服务并配置免密登录<br>
+                    2. Java环境配置：安装OpenJDK 8并配置环境变量<br>
+                    3. Hadoop核心配置：修改core-site.xml、hdfs-site.xml等配置文件<br>
+                    4. 集群启动与验证：格式化NameNode并启动集群服务
+                </p>
+            </div>
+            
+            <h3 class="section-subtitle">Web UI访问</h3>
+            <div class="web-ui-gallery">
+                <div class="ui-item">
+                    <div class="image-placeholder">HDFS NameNode UI截图<br>http://192.168.136.132:9870</div>
+                    <div class="ui-title">HDFS管理界面</div>
+                    <div class="ui-description">查看HDFS文件系统状态和存储信息，<br>监控数据节点运行状态</div>
+                </div>
+                <div class="ui-item">
+                    <div class="image-placeholder">YARN资源管理器截图<br>http://192.168.136.132:8088</div>
+                    <div class="ui-title">YARN资源管理</div>
+                    <div class="ui-description">监控集群资源和任务执行情况，<br>查看作业运行状态</div>
+                </div>
+                <div class="ui-item">
+                    <div class="image-placeholder">SecondaryNameNode截图<br>http://192.168.136.133:9868</div>
+                    <div class="ui-title">SecondaryNameNode</div>
+                    <div class="ui-description">检查SecondaryNameNode运行状态，<br>确保元数据备份正常</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">HBase安装与配置</h2>
+            <p class="section-intro">在Hadoop集群基础上成功安装配置了分布式HBase数据库。<br>
+            HBase利用HDFS作为底层存储，提供高可靠性、高性能的列式数据存储。</p>
+            
+            <div class="brief-config">
+                <h3 class="step-title">配置步骤概览</h3>
+                <p class="step-content">
+                    1. 环境变量配置：配置HBase环境变量<br>
+                    2. HBase配置文件：修改hbase-env.sh和hbase-site.xml配置文件<br>
+                    3. 集群同步与验证：将配置同步到所有节点并启动HBase服务
+                </p>
+            </div>
+            
+            <h3 class="section-subtitle">HBase Web UI</h3>
+            <div class="web-ui-gallery">
+                <div class="ui-item">
+                    <img src="C:\mis\hbase.png" alt="图片描述" style="width:100%; border-radius:6px;">
+                    <div class="ui-title">HBase管理界面</div>
+                    <div class="ui-description">监控HBase集群状态和表信息，<br>查看RegionServer运行状态</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Hadoop文件操作</h2>
+            <p class="section-intro">使用HDFS命令行工具进行文件操作，验证集群功能。<br>
+            通过实际操作验证HDFS的可靠性和数据分布特性。</p>
+            
+            <div class="file-commands">
+                <div class="command-table">
+                    <div class="command-title">HDFS常用命令</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>功能</th>
+                                <th>命令</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>查看文件</td>
+                                <td>hdfs dfs -ls &lt;路径&gt;</td>
+                            </tr>
+                            <tr>
+                                <td>上传文件</td>
+                                <td>hdfs dfs -put &lt;本地文件&gt; &lt;HDFS路径&gt;</td>
+                            </tr>
+                            <tr>
+                                <td>下载文件</td>
+                                <td>hdfs dfs -get &lt;HDFS文件&gt; &lt;本地路径&gt;</td>
+                            </tr>
+                            <tr>
+                                <td>查看内容</td>
+                                <td>hdfs dfs -cat &lt;文件&gt;</td>
+                            </tr>
+                            <tr>
+                                <td>创建目录</td>
+                                <td>hdfs dfs -mkdir &lt;目录&gt;</td>
+                            </tr>
+                            <tr>
+                                <td>删除文件</td>
+                                <td>hdfs dfs -rm &lt;文件&gt;</td>
+                            </tr>
+                            <tr>
+                                <td>删除目录</td>
+                                <td>hdfs dfs -rm -r &lt;目录&gt;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">监控系统搭建</h2>
+            <p class="section-intro">使用Prometheus + Grafana构建了完整的大数据平台监控系统。<br>
+            实时监控集群资源使用情况和各组件运行状态，确保系统稳定运行。</p>
+            
+            <div class="brief-config">
+                <h3 class="step-title">监控组件配置</h3>
+                <p class="step-content">
+                    在所有节点部署Node Exporter，配置JMX Exporter监控Hadoop和HBase服务。<br>
+                    配置Prometheus抓取各节点和服务的监控指标，使用Grafana进行数据可视化。
+                </p>
+            </div>
+            
+            <div class="monitoring-dashboard">
+                <div class="dashboard-item">
+                    <div class="dashboard-title">Prometheus监控</div>
+                    <p>配置Prometheus抓取各节点和服务的监控指标。</p>
+                    <div class="image-placeholder">Prometheus监控界面截图<br>http://hadoop1:9090</div>
+                </div>
+                
+                <div class="dashboard-item">
+                    <div class="dashboard-title">Grafana仪表板</div>
+                    <p>使用Grafana可视化监控数据，包括系统资源和Hadoop/HBase服务指标。</p>
+                    <div class="image-placeholder">Grafana监控仪表板截图<br>http://hadoop1:3000</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>北京交通大学 计算机与信息技术学院 | 实验完成时间: 2025年10月</p>
+            <p>© 2025 北京交通大学 大数据实验项目</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加一些交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为集群节点添加悬停效果
+            const clusterNodes = document.querySelectorAll('.cluster-node');
+            clusterNodes.forEach(node => {
+                node.addEventListener('mouseover', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                    this.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.1)';
+                });
+                
+                node.addEventListener('mouseout', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // 为仪表板项目添加悬停效果
+            const dashboardItems = document.querySelectorAll('.dashboard-item, .ui-item');
+            dashboardItems.forEach(item => {
+                item.addEventListener('mouseover', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                item.addEventListener('mouseout', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
