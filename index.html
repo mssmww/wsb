@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京交通大学大数据平台与MIS系统展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #00447c, #0066b3, #0088e6);
+            color: white;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .student-info {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            font-size: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .student-info div {
+            margin: 0 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #66ccff;
+        }
+        
+        .card-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .card-description {
+            font-size: 16px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ff9900;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #ffaa33;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #28a745;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #34ce57;
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #66ccff;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .feature-description {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .system-status {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+        
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>北京交通大学大数据平台与MIS系统展示</h1>
+            <p class="subtitle">计算机与信息技术学院 - 云计算与大数据实验项目成果展示</p>
+            <div class="student-info">
+                <div>学号：23281283</div>
+                <div>姓名：苏门</div>
+                <div>学院：计算机与信息技术学院</div>
+            </div>
+        </header>
+        
+        <div class="system-status">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Hadoop集群运行正常</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>MIS系统访问正常</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>监控系统运行中</span>
+            </div>
+        </div>
+        
+        <div class="dashboard-container">
+            <div class="dashboard-card">
+                <div class="card-icon">📊</div>
+                <h2 class="card-title">MIS系统访问量监控</h2>
+                <p class="card-description">展示北京交通大学MIS系统的实时访问量统计与趋势分析，包括日/周/月访问量数据可视化、用户类型分布和访问来源分析。</p>
+                <div class="card-buttons">
+                    <a href="mis.html" class="btn">查看访问量统计</a>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-icon">🖥️</div>
+                <h2 class="card-title">Hadoop集群搭建成果</h2>
+                <p class="card-description">展示三节点Hadoop集群的完整搭建过程与成果，包括HDFS、YARN、HBase配置及监控系统部署，提供集群状态实时监控。</p>
+                <div class="card-buttons">
+                    <a href="hadoop.html" class="btn">查看集群详情</a>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-icon">🌐</div>
+                <h2 class="card-title">北京交通大学MIS系统</h2>
+                <p class="card-description">直接访问北京交通大学官方MIS系统，体验系统功能与界面设计，了解系统在实际环境中的运行状态。</p>
+                <div class="card-buttons">
+                    <a href="http://mis.bjtu.edu.cn" target="_blank" class="btn btn-secondary">访问MIS系统</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">实时监控</h3>
+                <p class="feature-description">Prometheus + Grafana 实时监控系统运行状态</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">数据可视化</h3>
+                <p class="feature-description">使用Chart.js实现访问量数据的可视化展示</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚙️</div>
+                <h3 class="feature-title">集群管理</h3>
+                <p class="feature-description">三节点Hadoop集群的高可用配置与管理</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">安全可靠</h3>
+                <p class="feature-description">SSH免密登录与权限管理确保系统安全</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>北京交通大学 计算机与信息技术学院 | 云计算与大数据实验项目</p>
+            <p>© 2025 北京交通大学 版权所有</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加一些动态效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 卡片入场动画
+            const cards = document.querySelectorAll('.dashboard-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+            
+            // 状态点闪烁效果
+            const dots = document.querySelectorAll('.status-dot');
+            setInterval(() => {
+                dots.forEach(dot => {
+                    dot.style.opacity = '0.7';
+                    setTimeout(() => {
+                        dot.style.opacity = '1';
+                    }, 500);
+                });
+            }, 3000);
+            
+            // 鼠标移动视差效果
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                document.querySelector('body').style.backgroundPosition = 
+                    `${x * 20}px ${y * 20}px`;
+            });
+        });
+    </script>
+</body>
+</html>
